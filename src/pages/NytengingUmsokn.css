@@ -1,0 +1,2507 @@
+/* Nýtenging umsókn — staðsetning / heimilisfang (Figma 4299:23610) */
+
+.nytenging-umsokn__step-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style: none;
+}
+
+.nytenging-umsokn__layout {
+  display: flex;
+  width: 100%;
+  min-height: min(890px, calc(100vh - 68px));
+  align-items: stretch;
+  background: var(--v-page);
+}
+
+/* Skref 2 — Upplýsingar: 12-dálka kerfi (8 + 4), gutter 0 — aðaleyfður v., hliðarspjald h. */
+.nytenging-umsokn__layout--upplysingar {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 0px;
+  row-gap: 0;
+  padding-left: 0;
+  box-sizing: border-box;
+}
+
+/* Ritill: sýnir 12 dálka ofan á efni (SHOW_12_COL_GRID_OVERLAY í JSX) */
+.nytenging-umsokn__grid-12-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 0;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__grid-12-overlay__col {
+  border-inline-end: 1px dashed rgba(79, 70, 229, 0.5);
+  background: rgba(79, 70, 229, 0.06);
+}
+
+.nytenging-umsokn__grid-12-overlay__col:first-child {
+  border-inline-start: 1px dashed rgba(79, 70, 229, 0.5);
+}
+
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__main {
+  grid-column: 1 / span 8;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__sidenav {
+  grid-column: 9 / span 4;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.nytenging-umsokn__sidenav {
+  width: 596px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 48px 32px;
+  background: var(--v-hvitur);
+  border-right: 1px solid var(--v-border);
+  box-sizing: border-box;
+}
+
+/* „Halda áfram“ undir hliðarspjaldi (skref 0) — hægri jöfnun */
+.nytenging-umsokn__sidenav > .nytenging-umsokn__footer-cta {
+  align-self: flex-end;
+}
+
+.nytenging-umsokn__sidenav--step2 {
+  width: 479px;
+  padding: 64px 32px 48px;
+  background: #eef4f4;
+  border-right: none;
+  border-left: 1px solid var(--v-border);
+}
+
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__sidenav--step2 {
+  width: auto;
+}
+
+.nytenging-umsokn__stodu-header {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 24px;
+  margin-bottom: -8px;
+}
+
+.nytenging-umsokn__stodu-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__side-accordions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 415px;
+}
+
+.nytenging-umsokn__acc-card {
+  background: var(--v-hvitur);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.nytenging-umsokn__acc-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__acc-caret {
+  display: flex;
+  color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__acc-caret--flip {
+  transform: rotate(180deg);
+}
+
+.nytenging-umsokn__acc-card--open .nytenging-umsokn__acc-card-head {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nytenging-umsokn__acc-card-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nytenging-umsokn__acc-address {
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__main-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Upplýsingar — aðaleyfð eyða (Figma 4246:60277) */
+.nytenging-umsokn__uply {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 32px 42px 96px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__uply {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 64px 112px 42px 112px;
+  box-sizing: border-box;
+}
+
+/* Greiðendur — Figma 4110:92329 (hægri padding í aðaleyfðu dálki) */
+.nytenging-umsokn__uply.nytenging-umsokn__uply--greidendur {
+  padding-right: 112px;
+}
+
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__uply.nytenging-umsokn__uply--greidendur {
+  padding-right: 112px;
+}
+
+.nytenging-umsokn__uply-lead {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.nytenging-umsokn__uply-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.286;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__uply-sub {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__uply-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.nytenging-umsokn__form-card {
+  background: var(--v-hvitur);
+  border-radius: 6px;
+  box-shadow: var(--v-shadow-card);
+  overflow: hidden;
+  width: 100%;
+}
+
+.nytenging-umsokn__form-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+  padding: 24px;
+  border-bottom: 1px solid var(--v-border);
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__form-card-head--solo {
+  min-height: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__form-card-head-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__form-card-head-icon svg,
+.nytenging-umsokn__form-card-head-svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.nytenging-umsokn__form-card-head-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__form-card-body {
+  padding: 24px;
+}
+
+.nytenging-umsokn__form-card-body--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.nytenging-umsokn__form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--v-page);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Kalt vatn — rofi einn í panel (Figma 3906:40221) */
+.nytenging-umsokn__form-panel--toggle-only {
+  gap: 24px;
+}
+
+.nytenging-umsokn__form-panel--toggle-only .nytenging-umsokn__toggle-row {
+  min-height: 24px;
+}
+
+/* Tengiliður og fagaðilar — Figma 4110:94957 (CardBase tengiliður / rafverktaki / pípari) */
+.nytenging-umsokn__fag-panel-lead {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__fag-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  border: 1px solid var(--v-border);
+  border-radius: 4px;
+  background: var(--v-hvitur);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--v-berg);
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: left;
+  transition: border-color 0.15s ease;
+}
+
+.nytenging-umsokn__fag-search:hover,
+.nytenging-umsokn__fag-search:focus-visible {
+  border-color: var(--v-icon-hover);
+}
+
+.nytenging-umsokn__fag-search:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__fag-search-placeholder {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--v-label);
+  font-weight: 400;
+}
+
+.nytenging-umsokn__fag-search svg {
+  flex-shrink: 0;
+  color: var(--v-dokkgrar);
+}
+
+/* Tveir reitir í röð undir rofa — NotificationSettings pör */
+.nytenging-umsokn__kv-extra-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.nytenging-umsokn__kv-extra-row .nytenging-umsokn__form-panel {
+  flex: 1 1 200px;
+  min-width: 0;
+  gap: 24px;
+}
+
+/* Fráveita — Figma 3906:40222 (Card_Veitur) */
+.nytenging-umsokn__frv-panel {
+  gap: 16px;
+}
+
+.nytenging-umsokn__frv-list-card {
+  width: 100%;
+  padding: 16px 0;
+  background: var(--v-card-subtle);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__frv-spec {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__frv-spec-label {
+  font-weight: 400;
+}
+
+.nytenging-umsokn__frv-spec-value {
+  font-weight: 700;
+}
+
+.nytenging-umsokn__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.nytenging-umsokn__field-label {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__select-like {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--v-border);
+  border-radius: 4px;
+  background: var(--v-hvitur);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--v-berg);
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.nytenging-umsokn__select-like:hover,
+.nytenging-umsokn__select-like:focus-visible {
+  border-color: var(--v-icon-hover);
+}
+
+.nytenging-umsokn__select-like:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__select-like__value--placeholder {
+  color: var(--v-label);
+}
+
+.nytenging-umsokn__input-like {
+  display: block;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--v-border);
+  border-radius: 4px;
+  background: var(--v-hvitur);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--v-berg);
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__input-like::placeholder {
+  color: var(--v-label);
+}
+
+.nytenging-umsokn__input-like:hover {
+  border-color: var(--v-icon-hover);
+}
+
+.nytenging-umsokn__input-like:focus-visible {
+  border-color: var(--v-icon-hover);
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__field--input-only {
+  gap: 0;
+}
+
+/* Greiðendur — Figma 4110:92329 */
+.nytenging-umsokn__greid-tenging-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.nytenging-umsokn__greid-tenging-q {
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-tenging-q-reg {
+  font-weight: 400;
+}
+
+.nytenging-umsokn__greid-tenging-q-strong {
+  font-weight: 700;
+}
+
+.nytenging-umsokn__greid-ork-card {
+  width: 100%;
+  border-radius: 8px;
+  background: var(--v-hvitur);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.nytenging-umsokn__greid-ork-head {
+  padding: 24px;
+  border-bottom: 1px solid #dde7e8;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__greid-ork-title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-ork-desc {
+  margin: 0;
+  max-width: 36em;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-ork-body {
+  padding: 24px 24px 32px;
+  box-sizing: border-box;
+}
+
+/* Figma 6645:58821 — töflusvæði + athugasemd með 16px bil */
+.nytenging-umsokn__greid-ork-body-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.nytenging-umsokn__greid-table-wrap {
+  width: 100%;
+}
+
+.nytenging-umsokn__greid-thead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: end;
+  min-height: 44px;
+  padding: 0 16px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+/* Nýtenging útfyllt — fjórir jafnir dálkar, síðasti haus tómur (6645:58821) */
+.nytenging-umsokn__greid-thead--quad {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.nytenging-umsokn__greid-th--trail {
+  min-width: 0;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.nytenging-umsokn__greid-th {
+  padding: 0 12px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--v-label);
+}
+
+.nytenging-umsokn__greid-tbody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.nytenging-umsokn__greid-tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 76px;
+  padding: 16px;
+  border-radius: 4px;
+  background: var(--v-page);
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__greid-tr--quad {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.nytenging-umsokn__greid-td {
+  padding: 0 12px;
+  font-size: 16px;
+  line-height: 20px;
+  min-width: 0;
+}
+
+.nytenging-umsokn__greid-td--meter {
+  font-weight: 700;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-td--err {
+  font-weight: 400;
+  color: #c62828;
+}
+
+.nytenging-umsokn__greid-td--value {
+  font-weight: 400;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-payer-lines {
+  margin: 0;
+  font-weight: 400;
+  line-height: 20px;
+  color: inherit;
+}
+
+.nytenging-umsokn__greid-td--link {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+}
+
+.nytenging-umsokn__greid-link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--v-dokkgrar);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  cursor: pointer;
+}
+
+.nytenging-umsokn__greid-link:hover,
+.nytenging-umsokn__greid-link:focus-visible {
+  color: var(--v-icon-hover);
+}
+
+.nytenging-umsokn__greid-link:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__greid-footnote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 0;
+  max-width: 546px;
+}
+
+.nytenging-umsokn__greid-footnote-icon {
+  flex-shrink: 0;
+  display: flex;
+  color: var(--v-dokkgrar);
+  margin-top: 2px;
+}
+
+.nytenging-umsokn__greid-footnote-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+
+.nytenging-umsokn__field-row .nytenging-umsokn__field {
+  flex: 1 1 200px;
+}
+
+.nytenging-umsokn__field-row--tight {
+  margin-top: 8px;
+}
+
+.nytenging-umsokn__toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.nytenging-umsokn__toggle-label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+  padding: 2px;
+  border: none;
+  border-radius: 84px;
+  background: #cccccc;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.15s ease;
+}
+
+.nytenging-umsokn__switch--on {
+  background: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__switch-thumb {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--v-hvitur);
+  transition: transform 0.15s ease;
+}
+
+.nytenging-umsokn__switch--on .nytenging-umsokn__switch-thumb {
+  transform: translateX(20px);
+}
+
+/* Switch — Figma I6534:39316;4478:43243 (36×24, thumb 16) */
+.nytenging-umsokn__switch--narrow {
+  width: 36px;
+}
+
+.nytenging-umsokn__switch-thumb--narrow {
+  width: 16px;
+  height: 16px;
+}
+
+.nytenging-umsokn__switch--on.nytenging-umsokn__switch--narrow .nytenging-umsokn__switch-thumb--narrow {
+  transform: translateX(16px);
+}
+
+.nytenging-umsokn__info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.nytenging-umsokn__info-row--block {
+  align-items: flex-start;
+}
+
+.nytenging-umsokn__info-icon {
+  flex-shrink: 0;
+  color: var(--v-dokkgrar);
+  margin-top: 2px;
+}
+
+.nytenging-umsokn__info-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__uply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.nytenging-umsokn__uply-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nytenging-umsokn__sidenav-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.nytenging-umsokn__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.286;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__section-label {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.333;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__search-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  background: var(--v-hvitur);
+  border: 1px solid var(--v-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__search-field span {
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__search-field svg {
+  flex-shrink: 0;
+  color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__divider {
+  height: 1px;
+  width: 100%;
+  background: var(--v-border);
+  border: none;
+  margin: 0;
+}
+
+.nytenging-umsokn__address-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nytenging-umsokn__address-line {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.333;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__stadfang-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--v-berg);
+}
+
+/* TagVeitur small — icon-only pills (Figma 4299:23646) */
+.nytenging-umsokn__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.nytenging-umsokn__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid var(--v-border);
+  border-radius: 9999px;
+  background: var(--v-hvitur);
+  flex-shrink: 0;
+}
+
+.nytenging-umsokn__tag--muted {
+  opacity: 0.8;
+}
+
+.nytenging-umsokn__tag-icon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__tag-icon svg,
+.nytenging-umsokn__tag-icon img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Vertical stepper */
+.nytenging-umsokn__stepper {
+  list-style: none;
+  margin: 0;
+  padding: 8px 16px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 416px;
+}
+
+.nytenging-umsokn__step {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  min-height: 32px;
+}
+
+.nytenging-umsokn__step-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__step-icon--done {
+  background: var(--v-dokkgrar);
+  color: var(--v-hvitur);
+  padding: 8px;
+}
+
+.nytenging-umsokn__step-icon--current {
+  border: 2px solid var(--v-dokkgrar);
+  background: var(--v-hvitur);
+  color: var(--v-dokkgrar);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.nytenging-umsokn__step-icon--todo {
+  border: 1px solid var(--v-disable);
+  background: var(--v-hvitur);
+  color: var(--v-disable);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.nytenging-umsokn__step-label {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__step-label--muted {
+  font-weight: 400;
+  color: var(--v-disable);
+}
+
+.nytenging-umsokn__step-line {
+  width: 32px;
+  margin-left: 0;
+  padding: 4px 0 4px 15px;
+  flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__step-line::before {
+  content: '';
+  width: 0;
+  flex: 1;
+  min-height: 24px;
+  border-left: 2px solid var(--v-border);
+}
+
+.nytenging-umsokn__step-line--active::before {
+  border-left-color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__footer-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 52px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 6px;
+  background: var(--v-dokkgrar);
+  color: var(--v-hvitur);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.nytenging-umsokn__footer-cta:hover,
+.nytenging-umsokn__footer-cta:focus-visible {
+  opacity: 0.92;
+}
+
+.nytenging-umsokn__footer-cta:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__footer-cta:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.nytenging-umsokn__footer-cta:disabled:hover {
+  opacity: 0.45;
+}
+
+.nytenging-umsokn__main {
+  flex: 1;
+  min-width: 0;
+  background: var(--v-page);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.nytenging-umsokn__map-panel {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__map-panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Staðfesting heimilisfangs — Figma 4246:60665 (ModaNýtt) */
+.nytenging-umsokn__modal-backdrop {
+  /* Portal undir body — utan við .minar-umsoknir, þess vegna tokens hér */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --v-dokkgrar: #364c4e;
+  --v-hvitur: #ffffff;
+  --v-berg: #323232;
+  --v-icon-hover: #496b72;
+  --v-card-subtle: #f7fafa;
+  --v-border: #e8efef;
+  --v-shadow-card: 0 0 24px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.nytenging-umsokn__modal {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 690px;
+  min-height: 300px;
+  padding: 60px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: var(--v-shadow-card);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.nytenging-umsokn__modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--v-icon-hover);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__modal-close:hover,
+.nytenging-umsokn__modal-close:focus-visible {
+  background: var(--v-card-subtle);
+}
+
+.nytenging-umsokn__modal-close:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__modal-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 32px;
+  width: 100%;
+  max-width: 570px;
+  margin: 0 auto;
+}
+
+/* Text — Figma I4246:60665;3233:44341 (gap 12px title ↔ body, 570px) */
+.nytenging-umsokn__modal-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.nytenging-umsokn__modal-title {
+  margin: 0;
+  width: 100%;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.286;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__modal-body p {
+  margin: 0;
+}
+
+.nytenging-umsokn__modal-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+
+.nytenging-umsokn__modal-actions .nytenging-umsokn__modal-btn,
+.nytenging-umsokn__modal-actions .nytenging-umsokn__footer-cta {
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
+  align-self: stretch;
+}
+
+.nytenging-umsokn__modal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 16px 32px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.nytenging-umsokn__modal-btn--secondary {
+  border: 1px solid #dde7e8;
+  background: #ffffff;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__modal-btn--secondary:hover,
+.nytenging-umsokn__modal-btn--secondary:focus-visible {
+  background: var(--v-card-subtle);
+}
+
+.nytenging-umsokn__modal-btn--secondary:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+/* Greiðendaupplýsingar hliðargluggi — Figma 6534:39316 */
+.nytenging-umsokn__greid-uppl-backdrop {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --v-dokkgrar: #364c4e;
+  --v-hvitur: #ffffff;
+  --v-berg: #323232;
+  --v-icon-hover: #496b72;
+  --v-card-subtle: #f7fafa;
+  --v-border: #e8efef;
+  --v-label: #666666;
+  --v-page: #fbfbfb;
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  padding: 0;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.nytenging-umsokn__greid-uppl-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(600px, 100%);
+  max-height: 100vh;
+  min-height: 0;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.nytenging-umsokn__greid-uppl-head {
+  flex-shrink: 0;
+  padding: 24px;
+  border-bottom: 1px solid #dde7e8;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__greid-uppl-head-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 36px;
+}
+
+.nytenging-umsokn__greid-uppl-title {
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-uppl-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--v-icon-hover);
+  cursor: pointer;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.nytenging-umsokn__greid-uppl-close:hover,
+.nytenging-umsokn__greid-uppl-close:focus-visible {
+  background: var(--v-card-subtle);
+}
+
+.nytenging-umsokn__greid-uppl-close:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__greid-uppl-body {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__greid-uppl-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.nytenging-umsokn__greid-uppl-tint {
+  background: var(--v-page);
+  border-radius: 4px;
+  width: 100%;
+}
+
+.nytenging-umsokn__greid-uppl-toggle-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 4px;
+  background: var(--v-page);
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__greid-uppl-toggle-copy {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nytenging-umsokn__greid-uppl-toggle-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-uppl-toggle-desc {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-uppl-form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 4px;
+  background: var(--v-page);
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__greid-uppl-form-heading {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-uppl-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: 540px;
+}
+
+.nytenging-umsokn__greid-uppl-info-icon {
+  flex-shrink: 0;
+  display: flex;
+  color: var(--v-dokkgrar);
+  margin-top: 2px;
+}
+
+.nytenging-umsokn__greid-uppl-info-text {
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__greid-uppl-foot {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px;
+  border-top: 1px solid #dde7e8;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__greid-uppl-confirm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  background: var(--v-dokkgrar);
+  color: var(--v-hvitur);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.nytenging-umsokn__greid-uppl-confirm svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.nytenging-umsokn__greid-uppl-confirm:hover,
+.nytenging-umsokn__greid-uppl-confirm:focus-visible {
+  opacity: 0.92;
+}
+
+.nytenging-umsokn__greid-uppl-confirm:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+/* Fylgiskjöl — Figma 4110:95462 */
+.nytenging-umsokn__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nytenging-umsokn__fylg-section {
+  width: 100%;
+}
+
+.nytenging-umsokn__fylg-section-inner {
+  background: var(--v-hvitur);
+  border-radius: 8px;
+  box-shadow: var(--v-shadow-card);
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Figma 6401:106769 — card content padding + stack */
+.nytenging-umsokn__fylg-section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-vidhengi {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #666666;
+}
+
+.nytenging-umsokn__fylg-cat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-cat--rafmagn {
+  background: #e8f5ee;
+  color: rgba(13, 92, 85, 1);
+}
+
+.nytenging-umsokn__fylg-cat--kalt {
+  background: #e3f4f8;
+  color: rgba(13, 92, 85, 1);
+}
+
+.nytenging-umsokn__fylg-cat--fraveita {
+  background: #dff2f0;
+  color: #0d5c55;
+}
+
+.nytenging-umsokn__fylg-cat--onnur {
+  background: #eef1f2;
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__fylg-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 0;
+}
+
+/* Figma — functional/surface/page-2 per röð */
+.nytenging-umsokn__fylg-item-card {
+  width: 100%;
+  padding: 24px;
+  border-radius: 4px;
+  background: #fbfbfb;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-item-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.nytenging-umsokn__fylg-item-title {
+  margin: 0;
+  flex: 1 1 200px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #364c4e;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.nytenging-umsokn__fylg-demo:hover,
+.nytenging-umsokn__fylg-demo:focus-visible {
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__fylg-demo:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.nytenging-umsokn__fylg-item-desc {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #666666;
+  max-width: 100%;
+}
+
+.nytenging-umsokn__fylg-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 16px 24px;
+  border: 1px dashed #8fa9af;
+  border-radius: 4px;
+  background: var(--v-hvitur);
+  box-sizing: border-box;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.nytenging-umsokn__fylg-drop--lg {
+  border-radius: 8px;
+}
+
+.nytenging-umsokn__fylg-drop--over {
+  background: #f4f8f9;
+  border-color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__fylg-drop-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  max-width: 293px;
+  padding: 12px 24px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-drop-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 99px;
+  background: #f7fafa;
+  color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__fylg-drop-icon-wrap svg,
+.nytenging-umsokn__fylg-upload-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.nytenging-umsokn__fylg-drop-text {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-drop-browse {
+  font-weight: 500;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.nytenging-umsokn__fylg-drop-browse:hover {
+  color: #364c4e;
+}
+
+/* Fylgiskjöl — sýnidæmi gluggi (Figma 6670:75758 / 6670:75351) */
+.nytenging-umsokn__fylg-demo-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  max-height: min(1188px, calc(100vh - 48px));
+  overflow: hidden auto;
+  border-radius: 8px;
+  background: var(--v-hvitur);
+  box-shadow: 0 0 20px -4px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-demo-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  padding: 24px;
+  border-bottom: 1px solid #e8efef;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-demo-title {
+  margin: 0;
+  flex: 1 1 200px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--v-dokkgrar);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-demo-close:hover,
+.nytenging-umsokn__fylg-demo-close:focus-visible {
+  background: var(--v-card-subtle);
+}
+
+.nytenging-umsokn__fylg-demo-close:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__fylg-demo-close svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.nytenging-umsokn__fylg-demo-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-demo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nytenging-umsokn__fylg-demo-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 36px;
+}
+
+.nytenging-umsokn__fylg-demo-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 6px 0;
+}
+
+.nytenging-umsokn__fylg-demo-section-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.nytenging-umsokn__fylg-demo-section-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.333;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo-tint {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 4px;
+  background: #fbfbfb;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-demo-price-row {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-demo-price-row--detail {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nytenging-umsokn__fylg-demo-price-row--simple {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nytenging-umsokn__fylg-demo-price-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.nytenging-umsokn__fylg-demo-line-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo-line-sub {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo-line-price {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #323232;
+  white-space: nowrap;
+}
+
+.nytenging-umsokn__fylg-demo-lorem {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  border-top: 1px solid #e8efef;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__fylg-demo-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-right: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo-total-label {
+  flex: 1 1 auto;
+}
+
+.nytenging-umsokn__fylg-demo-total-value {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nytenging-umsokn__fylg-demo-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.nytenging-umsokn__fylg-demo-note-icon {
+  display: flex;
+  flex-shrink: 0;
+  padding-top: 2px;
+  color: var(--v-dokkgrar);
+}
+
+.nytenging-umsokn__fylg-demo-note-icon svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.nytenging-umsokn__fylg-demo-note-text {
+  margin: 0;
+  flex: 1 1 auto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #323232;
+}
+
+.nytenging-umsokn__fylg-demo-note-link {
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.nytenging-umsokn__fylg-demo-note-link:hover {
+  color: #364c4e;
+}
+
+/* Umsókn móttekin — Figma 4110:97931 / ModaNýtt 4110:98259 */
+.nytenging-umsokn__mottekin-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 730px;
+  padding: 60px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: var(--v-shadow-card);
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__mottekin-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--v-icon-hover);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__mottekin-close:hover,
+.nytenging-umsokn__mottekin-close:focus-visible {
+  background: var(--v-card-subtle);
+}
+
+.nytenging-umsokn__mottekin-close:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__mottekin-close svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.nytenging-umsokn__mottekin-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__mottekin-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 261px;
+  flex: 1 1 220px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__mottekin-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: center;
+  color: #323232;
+}
+
+.nytenging-umsokn__mottekin-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.286;
+}
+
+.nytenging-umsokn__mottekin-sub {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.nytenging-umsokn__mottekin-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 6px;
+  background: var(--v-dokkgrar);
+  color: var(--v-hvitur);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: opacity 0.15s ease;
+}
+
+.nytenging-umsokn__mottekin-cta:hover,
+.nytenging-umsokn__mottekin-cta:focus-visible {
+  opacity: 0.92;
+}
+
+.nytenging-umsokn__mottekin-cta:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__mottekin-stepper {
+  list-style: none;
+  margin: 0;
+  padding: 0 32px 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 1 auto;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__mottekin-step-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style: none;
+}
+
+.nytenging-umsokn__mottekin-step {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nytenging-umsokn__mottekin-step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__mottekin-step-icon--done {
+  padding: 8px;
+  background: var(--v-dokkgrar);
+  color: var(--v-hvitur);
+}
+
+.nytenging-umsokn__mottekin-step-icon--done svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.nytenging-umsokn__mottekin-step-icon--current {
+  border: 2px solid var(--v-dokkgrar);
+  background: transparent;
+  color: var(--v-dokkgrar);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.nytenging-umsokn__mottekin-step-icon--muted {
+  border: 1px solid #cccccc;
+  background: transparent;
+  color: #cccccc;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.nytenging-umsokn__mottekin-step-label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #323232;
+}
+
+.nytenging-umsokn__mottekin-step-label--muted {
+  font-weight: 400;
+  color: #cccccc;
+}
+
+.nytenging-umsokn__mottekin-step-line {
+  width: 32px;
+  margin-left: 0;
+  padding: 4px 0 4px 15px;
+  flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__mottekin-step-line::before {
+  content: '';
+  width: 0;
+  flex: 1;
+  min-height: 24px;
+  border-left: 2px solid var(--v-border);
+}
+
+.nytenging-umsokn__mottekin-step-line--active::before {
+  border-left-color: var(--v-dokkgrar);
+}
+
+/* Yfirlit — Figma 4110:96631 */
+.nytenging-umsokn__yfirlit-card {
+  width: 100%;
+  max-width: 705px;
+  background: var(--v-hvitur);
+  border-radius: 6px;
+  box-shadow: var(--v-shadow-card);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__yfirlit-card--price {
+  border-radius: 8px;
+  box-shadow: 0 0 20px -4px rgba(0, 0, 0, 0.05);
+}
+
+.nytenging-umsokn__yfirlit-card-head {
+  padding: 24px;
+  border-bottom: 1px solid #e8efef;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__yfirlit-card-head--split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+.nytenging-umsokn__yfirlit-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: #323232;
+}
+
+.nytenging-umsokn__yfirlit-text-link {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #364c4e;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+a.nytenging-umsokn__yfirlit-text-link {
+  display: inline;
+}
+
+.nytenging-umsokn__yfirlit-text-link:hover,
+.nytenging-umsokn__yfirlit-text-link:focus-visible {
+  color: var(--v-berg);
+}
+
+.nytenging-umsokn__yfirlit-text-link:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.nytenging-umsokn__yfirlit-card-body {
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__yfirlit-card-body--price {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nytenging-umsokn__yfirlit-price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nytenging-umsokn__yfirlit-price-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 36px;
+}
+
+.nytenging-umsokn__yfirlit-price-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 6px 0;
+}
+
+.nytenging-umsokn__yfirlit-price-section-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.nytenging-umsokn__yfirlit-price-section-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.333;
+  color: #323232;
+}
+
+.nytenging-umsokn__yfirlit-price-section-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 4px;
+  background: #fbfbfb;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__yfirlit-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 28px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #323232;
+}
+
+.nytenging-umsokn__yfirlit-price-row-label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nytenging-umsokn__yfirlit-price-row-value {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nytenging-umsokn__yfirlit-card-foot {
+  padding: 24px;
+  border-top: 1px solid #e8efef;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__yfirlit-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-right: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.333;
+  color: #323232;
+}
+
+.nytenging-umsokn__yfirlit-ta-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.nytenging-umsokn__yfirlit-ta {
+  width: 100%;
+  min-height: 120px;
+  padding: 8px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: var(--v-hvitur);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #323232;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__yfirlit-ta::placeholder {
+  color: #666666;
+}
+
+.nytenging-umsokn__yfirlit-ta:focus-visible {
+  outline: 2px solid var(--v-icon-hover);
+  outline-offset: 2px;
+}
+
+.nytenging-umsokn__yfirlit-ta-count {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: #b3b3b3;
+}
+
+.nytenging-umsokn__yfirlit-skilmalar-box {
+  padding: 16px 24px;
+  border-radius: 4px;
+  background: #fbfbfb;
+  box-sizing: border-box;
+}
+
+.nytenging-umsokn__yfirlit-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.nytenging-umsokn__yfirlit-check-input {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: #364c4e;
+  cursor: pointer;
+}
+
+.nytenging-umsokn__yfirlit-check-text {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.333;
+  color: #323232;
+}
+
+.nytenging-umsokn__yfirlit-check-link {
+  font: inherit;
+  font-weight: 500;
+  color: #364c4e;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.nytenging-umsokn__yfirlit-check-link:hover {
+  color: var(--v-berg);
+}
+
+@media (max-width: 1024px) {
+  .nytenging-umsokn__layout {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .nytenging-umsokn__layout--upplysingar {
+    display: flex;
+    flex-direction: column;
+    column-gap: 0;
+    gap: 16px;
+  }
+
+  .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__main,
+  .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__sidenav {
+    grid-column: unset;
+    grid-row: unset;
+    width: 100%;
+  }
+
+  .nytenging-umsokn__sidenav {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--v-border);
+    padding: 32px 24px;
+  }
+
+  .nytenging-umsokn__stepper {
+    max-width: none;
+  }
+
+  .nytenging-umsokn__map-panel {
+    min-height: 320px;
+  }
+
+  .nytenging-umsokn__modal {
+    padding: 40px 24px 32px;
+    min-height: 0;
+  }
+
+  .nytenging-umsokn__modal-title {
+    font-size: 22px;
+  }
+
+  .nytenging-umsokn__modal-actions {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .nytenging-umsokn__modal-actions {
+    flex-wrap: wrap;
+  }
+
+  .nytenging-umsokn__modal-btn,
+  .nytenging-umsokn__modal-actions .nytenging-umsokn__footer-cta {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: unset;
+    justify-content: center;
+  }
+
+  .nytenging-umsokn__layout--upplysingar {
+    padding-left: 0;
+  }
+
+  .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__main,
+  .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__sidenav {
+    order: 0;
+  }
+
+  .nytenging-umsokn__sidenav--step2 {
+    width: 100%;
+    border-left: none;
+  }
+
+  .nytenging-umsokn__uply {
+    padding: 32px 24px 48px;
+    max-width: none;
+  }
+
+  .nytenging-umsokn__mottekin-modal {
+    padding: 48px 24px 40px;
+  }
+
+  .nytenging-umsokn__mottekin-title {
+    font-size: 22px;
+  }
+
+  .nytenging-umsokn__mottekin-stepper {
+    width: 100%;
+    max-width: none;
+    padding: 0 0 8px;
+  }
+}
