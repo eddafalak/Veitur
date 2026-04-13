@@ -1,0 +1,219 @@
+.veldu-adgang {
+  --v-berg: #323232;
+  --v-dokkgrar: #364c4e;
+  --v-hvitur: #ffffff;
+  --v-border: #dde7e8;
+  --v-card: #f7fafa;
+  --v-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  background: var(--v-dokkgrar);
+  color: var(--v-berg);
+  font-family: var(--v-font);
+  min-height: 100vh;
+  position: relative;
+}
+
+.veldu-adgang *,
+.veldu-adgang *::before,
+.veldu-adgang *::after {
+  box-sizing: border-box;
+}
+
+.veldu-adgang__nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 24px;
+  z-index: 2;
+}
+
+.veldu-adgang__logo {
+  width: 160px;
+  height: 36px;
+  display: block;
+}
+
+.veldu-adgang__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+}
+
+.veldu-adgang__main {
+  display: flex;
+  min-height: 100vh;
+}
+
+.veldu-adgang__image,
+.veldu-adgang__content {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+.veldu-adgang__image {
+  position: relative;
+}
+
+.veldu-adgang__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.veldu-adgang__content {
+  background: var(--v-hvitur);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 96px;
+}
+
+.veldu-adgang__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.veldu-adgang__title {
+  width: 442px;
+  max-width: 100%;
+  line-height: 1.2857143;
+  color: var(--v-berg);
+}
+
+.veldu-adgang__title-line {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.veldu-adgang__title-line--bold {
+  font-weight: 700;
+}
+
+.veldu-adgang__groups {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.veldu-adgang__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.veldu-adgang__group-label {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--v-berg);
+}
+
+.veldu-adgang__card {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 4px;
+  background: var(--v-card);
+  text-align: left;
+  cursor: pointer;
+}
+
+.veldu-adgang__card:focus-visible {
+  outline: 2px solid var(--v-dokkgrar);
+  outline-offset: 2px;
+}
+
+.veldu-adgang__card-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.veldu-adgang__card-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--v-berg);
+}
+
+.veldu-adgang__card-kt {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--v-berg);
+}
+
+.veldu-adgang__tag {
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 28px;
+  background: var(--v-dokkgrar);
+  color: var(--v-hvitur);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.22px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.veldu-adgang__logout {
+  width: 100%;
+  min-height: 52px;
+  padding: 16px 32px;
+  border-radius: 6px;
+  border: 1px solid var(--v-border);
+  background: transparent;
+  color: var(--v-berg);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.veldu-adgang__logout:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.veldu-adgang__logout:focus-visible {
+  outline: 2px solid var(--v-dokkgrar);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1100px) {
+  .veldu-adgang__content {
+    padding: 72px 48px 56px;
+  }
+}
+
+@media (max-width: 860px) {
+  .veldu-adgang__main {
+    flex-direction: column;
+  }
+
+  .veldu-adgang__image {
+    min-height: 280px;
+    flex: 0 0 auto;
+  }
+}
+

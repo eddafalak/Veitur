@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import YfirlitPriceCard from '../components/YfirlitPriceCard.jsx'
+import { readGreidendurOrkumaelaDraft, saveGreidendurOrkumaelaDraft } from '../greidendurOrkumaelaDraft.js'
 import './MinarUmsoknir.css'
 import './NytengingUmsokn.css'
 
@@ -32,6 +34,9 @@ const TITLES = {
 }
 
 const SAMPLE_ADDRESS = 'Reynimelur 32, 107 Reykjavík'
+
+/** Sýnieinkunnafn — haus og greiðanda-spurning nota sama nafn og innskráður notandi. */
+const DEMO_LOGGED_IN_NAME = 'Jónatan Gunnlaugsson'
 
 /** Set to `true` to show the Figma 12-column debug overlay (skref ≥ 1). */
 const SHOW_12_COL_GRID_OVERLAY = false
@@ -405,8 +410,8 @@ function UpplisingarStepContent({ type, addressLine, onBack, onContinue }) {
   return (
     <div className="nytenging-umsokn__uply">
       <header className="nytenging-umsokn__uply-lead">
-        <h2 className="nytenging-umsokn__uply-title">{FORM_LEAD_TITLE[type]}</h2>
-        <p className="nytenging-umsokn__uply-sub">{addressLine}</p>
+        <h2 className="nytenging-umsokn__uply-title">{addressLine}</h2>
+        <p className="nytenging-umsokn__uply-sub">{FORM_LEAD_TITLE[type]}</p>
       </header>
 
       <div className="nytenging-umsokn__uply-stack">
@@ -743,7 +748,7 @@ const TENGILIDUR_INFO =
 
 const TENGILIDUR_APPLICANT = {
   kennitala: '1412913899',
-  nafn: 'Jónatan Gunnlaugsson',
+  nafn: DEMO_LOGGED_IN_NAME,
   netfang: 'Jontatan@jonatan.is',
   simi: '7803432',
 }
@@ -1038,8 +1043,8 @@ function FylgiskjolStepContent({ type, addressLine, onBack, onContinue }) {
   return (
     <div className="nytenging-umsokn__uply nytenging-umsokn__uply--greidendur">
       <header className="nytenging-umsokn__uply-lead">
-        <h2 className="nytenging-umsokn__uply-title">{FORM_LEAD_TITLE[type]}</h2>
-        <p className="nytenging-umsokn__uply-sub">{addressLine}</p>
+        <h2 className="nytenging-umsokn__uply-title">{addressLine}</h2>
+        <p className="nytenging-umsokn__uply-sub">{FORM_LEAD_TITLE[type]}</p>
       </header>
 
       <div className="nytenging-umsokn__uply-stack">
@@ -1090,31 +1095,6 @@ function FylgiskjolStepContent({ type, addressLine, onBack, onContinue }) {
           <IconArrowRight />
         </button>
       </div>
-    </div>
-  )
-}
-
-const YFIRLIT_SAMPLE_LINE = { label: '400A-3 fasa bráðabirgða', price: '16.000.000 kr' }
-
-function YfirlitPriceRow({ label, price }) {
-  return (
-    <div className="nytenging-umsokn__yfirlit-price-row">
-      <span className="nytenging-umsokn__yfirlit-price-row-label">{label}</span>
-      <span className="nytenging-umsokn__yfirlit-price-row-value">{price}</span>
-    </div>
-  )
-}
-
-function YfirlitPriceSection({ title, icon, children }) {
-  return (
-    <div className="nytenging-umsokn__yfirlit-price-section">
-      <div className="nytenging-umsokn__yfirlit-price-section-head">
-        <span className="nytenging-umsokn__yfirlit-price-section-icon" aria-hidden>
-          {icon}
-        </span>
-        <span className="nytenging-umsokn__yfirlit-price-section-title">{title}</span>
-      </div>
-      <div className="nytenging-umsokn__yfirlit-price-section-box">{children}</div>
     </div>
   )
 }
@@ -1239,46 +1219,12 @@ function YfirlitStepContent({ type, addressLine, onBack, onSubmit }) {
   return (
     <div className="nytenging-umsokn__uply nytenging-umsokn__uply--greidendur">
       <header className="nytenging-umsokn__uply-lead">
-        <h2 className="nytenging-umsokn__uply-title">{FORM_LEAD_TITLE[type]}</h2>
-        <p className="nytenging-umsokn__uply-sub">{addressLine}</p>
+        <h2 className="nytenging-umsokn__uply-title">{addressLine}</h2>
+        <p className="nytenging-umsokn__uply-sub">{FORM_LEAD_TITLE[type]}</p>
       </header>
 
       <div className="nytenging-umsokn__uply-stack">
-        <section
-          className="nytenging-umsokn__yfirlit-card nytenging-umsokn__yfirlit-card--price"
-          aria-labelledby="yfirlit-verd-title"
-        >
-          <div className="nytenging-umsokn__yfirlit-card-head nytenging-umsokn__yfirlit-card-head--split">
-            <h3 id="yfirlit-verd-title" className="nytenging-umsokn__yfirlit-card-title">
-              Áætlað verð
-            </h3>
-            <button
-              type="button"
-              className="nytenging-umsokn__yfirlit-text-link"
-              onClick={() => setVerdSkyringarOpen(true)}
-            >
-              Sjá skýringar
-            </button>
-          </div>
-          <div className="nytenging-umsokn__yfirlit-card-body nytenging-umsokn__yfirlit-card-body--price">
-            <YfirlitPriceSection title="Rafmagn" icon={<IconRafmagnCard />}>
-              <YfirlitPriceRow {...YFIRLIT_SAMPLE_LINE} />
-              <YfirlitPriceRow {...YFIRLIT_SAMPLE_LINE} />
-            </YfirlitPriceSection>
-            <YfirlitPriceSection title="Heitt vatn" icon={<IconHeittVatnCard />}>
-              <YfirlitPriceRow {...YFIRLIT_SAMPLE_LINE} />
-            </YfirlitPriceSection>
-            <YfirlitPriceSection title="Kalt vatn" icon={<IconKaltVatnCard />}>
-              <YfirlitPriceRow {...YFIRLIT_SAMPLE_LINE} />
-            </YfirlitPriceSection>
-          </div>
-          <div className="nytenging-umsokn__yfirlit-card-foot">
-            <div className="nytenging-umsokn__yfirlit-total-row">
-              <span className="nytenging-umsokn__yfirlit-total-label">Heildarverð m. VSK</span>
-              <span className="nytenging-umsokn__yfirlit-total-value">30.000.000 kr</span>
-            </div>
-          </div>
-        </section>
+        <YfirlitPriceCard onSjaskyringarClick={() => setVerdSkyringarOpen(true)} />
 
         <section className="nytenging-umsokn__yfirlit-card" aria-labelledby="yfirlit-annad-title">
           <div className="nytenging-umsokn__yfirlit-card-head">
@@ -1357,7 +1303,9 @@ function YfirlitStepContent({ type, addressLine, onBack, onSubmit }) {
         <button
           type="button"
           className="nytenging-umsokn__footer-cta"
+          disabled={!termsOk}
           onClick={() => {
+            if (!termsOk) return
             onSubmit?.()
             setSuccessModalOpen(true)
           }}
@@ -1390,6 +1338,8 @@ function TengilidirFagilarStepContent({ type, addressLine, onBack, onContinue })
   const [tengilidirNafn, setTengilidirNafn] = useState('')
   const [tengilidirNetfang, setTengilidirNetfang] = useState('')
   const [tengilidirSimi, setTengilidirSimi] = useState('')
+  const [fagRafLeit, setFagRafLeit] = useState('')
+  const [fagPipaLeit, setFagPipaLeit] = useState('')
 
   const toggleTengilidirSami = () => {
     const next = !tengilidirSami
@@ -1410,8 +1360,8 @@ function TengilidirFagilarStepContent({ type, addressLine, onBack, onContinue })
   return (
     <div className="nytenging-umsokn__uply nytenging-umsokn__uply--greidendur">
       <header className="nytenging-umsokn__uply-lead">
-        <h2 className="nytenging-umsokn__uply-title">{FORM_LEAD_TITLE[type]}</h2>
-        <p className="nytenging-umsokn__uply-sub">{addressLine}</p>
+        <h2 className="nytenging-umsokn__uply-title">{addressLine}</h2>
+        <p className="nytenging-umsokn__uply-sub">{FORM_LEAD_TITLE[type]}</p>
       </header>
 
       <div className="nytenging-umsokn__uply-stack">
@@ -1512,12 +1462,21 @@ function TengilidirFagilarStepContent({ type, addressLine, onBack, onContinue })
           <div className="nytenging-umsokn__form-card-body nytenging-umsokn__form-card-body--stack">
             <div className="nytenging-umsokn__form-panel">
               <p className="nytenging-umsokn__fag-panel-lead">Skráðu þann fagaðila sem á að vinna verkið.</p>
-              <button type="button" className="nytenging-umsokn__fag-search">
-                <span className="nytenging-umsokn__fag-search-placeholder">
-                  Sláðu inn nafn, kennitölu eða netfang
+              <div className="nytenging-umsokn__fag-search">
+                <input
+                  id="fag-raf-leit"
+                  type="text"
+                  className="nytenging-umsokn__fag-search-input"
+                  placeholder="Sláðu inn nafn, kennitölu eða netfang"
+                  autoComplete="off"
+                  value={fagRafLeit}
+                  onChange={(e) => setFagRafLeit(e.target.value)}
+                  aria-label="Leit að rafverktaka"
+                />
+                <span className="nytenging-umsokn__fag-search-icon" aria-hidden>
+                  <IconSearch />
                 </span>
-                <IconSearch />
-              </button>
+              </div>
               <SelectLikeField id="fag-raf-simi" label="Símanúmer" placeholder="Símanúmer" />
             </div>
           </div>
@@ -1530,12 +1489,21 @@ function TengilidirFagilarStepContent({ type, addressLine, onBack, onContinue })
           <div className="nytenging-umsokn__form-card-body nytenging-umsokn__form-card-body--stack">
             <div className="nytenging-umsokn__form-panel">
               <p className="nytenging-umsokn__fag-panel-lead">Skráðu þann fagaðila sem á að vinna verkið.</p>
-              <button type="button" className="nytenging-umsokn__fag-search">
-                <span className="nytenging-umsokn__fag-search-placeholder">
-                  Sláðu inn nafn, kennitölu eða netfang
+              <div className="nytenging-umsokn__fag-search">
+                <input
+                  id="fag-pipa-leit"
+                  type="text"
+                  className="nytenging-umsokn__fag-search-input"
+                  placeholder="Sláðu inn nafn, kennitölu eða netfang"
+                  autoComplete="off"
+                  value={fagPipaLeit}
+                  onChange={(e) => setFagPipaLeit(e.target.value)}
+                  aria-label="Leit að pípulagningameistara"
+                />
+                <span className="nytenging-umsokn__fag-search-icon" aria-hidden>
+                  <IconSearch />
                 </span>
-                <IconSearch />
-              </button>
+              </div>
               <div className="nytenging-umsokn__field">
                 <label className="nytenging-umsokn__field-label" htmlFor="fag-pipa-simi">
                   Símanúmer
@@ -1572,11 +1540,21 @@ function TengilidirFagilarStepContent({ type, addressLine, onBack, onContinue })
 }
 
 function GreidendurStepContent({ type, addressLine, onBack, onContinue }) {
-  const [greidandiTengingar, setGreidandiTengingar] = useState(false)
+  const [greidandiTengingar, setGreidandiTengingar] = useState(true)
   const [greidUpplRowId, setGreidUpplRowId] = useState(null)
-  const [meterPayers, setMeterPayers] = useState(() =>
-    Object.fromEntries(GREID_METER_ROWS.map((r) => [r.id, null])),
-  )
+  const [meterPayers, setMeterPayers] = useState(() => {
+    const base = Object.fromEntries(GREID_METER_ROWS.map((r) => [r.id, null]))
+    const draft = readGreidendurOrkumaelaDraft(addressLine)
+    if (!draft || typeof draft !== 'object') return base
+    const next = { ...base }
+    for (const r of GREID_METER_ROWS) {
+      const v = draft[r.id]
+      if (v && typeof v === 'object' && (v.nafn || v.kennitala || v.simi)) {
+        next[r.id] = { kennitala: v.kennitala ?? '', nafn: v.nafn ?? '', simi: v.simi ?? '' }
+      }
+    }
+    return next
+  })
 
   const saveGreidandiFromModal = (payload) => {
     const { meterRowId: rowId, einnGreidandi: einn, kennitala, nafn, simanumer } = payload
@@ -1590,6 +1568,7 @@ function GreidendurStepContent({ type, addressLine, onBack, onContinue }) {
       } else {
         next[rowId] = entry
       }
+      saveGreidendurOrkumaelaDraft(addressLine, next)
       return next
     })
   }
@@ -1597,8 +1576,8 @@ function GreidendurStepContent({ type, addressLine, onBack, onContinue }) {
   return (
     <div className="nytenging-umsokn__uply nytenging-umsokn__uply--greidendur">
       <header className="nytenging-umsokn__uply-lead">
-        <h2 className="nytenging-umsokn__uply-title">{FORM_LEAD_TITLE[type]}</h2>
-        <p className="nytenging-umsokn__uply-sub">{addressLine}</p>
+        <h2 className="nytenging-umsokn__uply-title">{addressLine}</h2>
+        <p className="nytenging-umsokn__uply-sub">{FORM_LEAD_TITLE[type]}</p>
       </header>
 
       <div className="nytenging-umsokn__uply-stack">
@@ -1625,11 +1604,11 @@ function GreidendurStepContent({ type, addressLine, onBack, onContinue }) {
                 </button>
                 <p className="nytenging-umsokn__greid-tenging-q">
                   <span className="nytenging-umsokn__greid-tenging-q-reg">Er </span>
-                  <span className="nytenging-umsokn__greid-tenging-q-strong">Stockton ehf. </span>
+                  <span className="nytenging-umsokn__greid-tenging-q-strong">{DEMO_LOGGED_IN_NAME} </span>
                   <span className="nytenging-umsokn__greid-tenging-q-reg">greiðandi þessara umsóknar?</span>
                 </p>
               </div>
-              {greidandiTengingar ? (
+              {!greidandiTengingar ? (
                 <>
                   <div className="nytenging-umsokn__field nytenging-umsokn__field--input-only">
                     <InputLikeField id="greid-kt" placeholder="Kennitala" />
@@ -1917,7 +1896,7 @@ export default function NytengingUmsokn() {
             <span className="minar-umsoknir__notif-dot" aria-hidden />
           </button>
           <button type="button" className="minar-umsoknir__user-menu">
-            <span>Jónatan Gunnlaugsson</span>
+            <span>{DEMO_LOGGED_IN_NAME}</span>
             <IconCaretDown />
           </button>
         </div>

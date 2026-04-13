@@ -1,11 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import StoduyfirlitView from './StoduyfirlitView.jsx'
 import './MinarUmsoknir.css'
 
 const ASSETS = {
   logo: '/figma-assets/d34fa6c5a18c064370f1e0cf9cc7b3a3d28d5fa7.png',
   hero: '/figma-assets/1af8bb021722fc8cda711d628703c4b5a4c104fa.png',
   ctaPhoto: '/figma-assets/a8933d8ce667a400425ce74f66b4d9d7fbe3fb7a.png',
+  userMenu: {
+    close: `${import.meta.env.BASE_URL}figma-assets/user-menu/close.svg`,
+    switchAccount: `${import.meta.env.BASE_URL}figma-assets/user-menu/switch-account.svg`,
+    user: `${import.meta.env.BASE_URL}figma-assets/user-menu/user.svg`,
+    assetsMeters: `${import.meta.env.BASE_URL}figma-assets/user-menu/assets-meters.svg`,
+    accessDelegation: `${import.meta.env.BASE_URL}figma-assets/user-menu/access-delegation.svg`,
+    paymentInfo: `${import.meta.env.BASE_URL}figma-assets/user-menu/payment-info.svg`,
+    piPort: `${import.meta.env.BASE_URL}figma-assets/user-menu/pi-port.svg`,
+    advice: `${import.meta.env.BASE_URL}figma-assets/user-menu/advice.svg`,
+    help: `${import.meta.env.BASE_URL}figma-assets/user-menu/help.svg`,
+    logout: `${import.meta.env.BASE_URL}figma-assets/user-menu/logout.svg`,
+  },
 }
 
 function IconBell() {
@@ -124,7 +137,9 @@ function Meta({ label, value }) {
   return (
     <div className="minar-umsoknir__meta">
       <span className="minar-umsoknir__meta-label">{label}</span>
-      <span className="minar-umsoknir__meta-value">{value}</span>
+      {value != null && value !== '' ? (
+        <span className="minar-umsoknir__meta-value">{value}</span>
+      ) : null}
     </div>
   )
 }
@@ -145,9 +160,29 @@ const TABS = [
   { id: 'eldri', label: 'Eldri umsóknir' },
 ]
 
+const ADDRESS_POSTAL_REYKJAVIK = ', 107 Reykjavík'
+
+function virkarCardStreet(i) {
+  if (i === 1) return 'Ármúli 1'
+  if (i === 2) return 'Holtsgata 24'
+  if (i === 3) return 'Fannafold 3'
+  if (i === 4) return 'Akravogur 56'
+  if (i === 5) return 'Nýlendugata 8'
+  return 'Reynimelur 32'
+}
+
+function virkarCardFullAddress(i) {
+  return `${virkarCardStreet(i)}${ADDRESS_POSTAL_REYKJAVIK}`
+}
+
 export default function MinarUmsoknir() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('allt')
+  const [statusApplication, setStatusApplication] = useState(null)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const userMenuBtnRef = useRef(null)
+  const userMenuPanelRef = useRef(null)
+  const userMenuCloseBtnRef = useRef(null)
 
   const showSamthykkt = activeTab === 'allt' || activeTab === 'samthykkt'
   const showVirkar = activeTab === 'allt' || activeTab === 'virkar'
@@ -155,6 +190,58 @@ export default function MinarUmsoknir() {
 
   const showDividerAfterSamthykkt = showSamthykkt && (showVirkar || showOklarad)
   const showDividerAfterVirkar = showVirkar && showOklarad
+
+  const VIRKAR_TOTAL = 6
+  const VIRKAR_PREVIEW = 3
+  const virkarCount = activeTab === 'virkar' ? VIRKAR_TOTAL : VIRKAR_PREVIEW
+  const showVirkarSeeAll = activeTab !== 'virkar' && VIRKAR_TOTAL > VIRKAR_PREVIEW
+  const periodFilterActive = activeTab !== 'allt'
+
+  useEffect(() => {
+    if (!statusApplication) return
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [statusApplication])
+
+  useEffect(() => {
+    if (!userMenuOpen) return undefined
+
+    const t = window.setTimeout(() => userMenuCloseBtnRef.current?.focus(), 0)
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setUserMenuOpen(false)
+        window.setTimeout(() => userMenuBtnRef.current?.focus(), 0)
+      }
+    }
+
+    const onPointerDown = (e) => {
+      const panel = userMenuPanelRef.current
+      const btn = userMenuBtnRef.current
+      if (!panel || !btn) return
+      if (panel.contains(e.target) || btn.contains(e.target)) return
+      setUserMenuOpen(false)
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => {
+      window.clearTimeout(t)
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('pointerdown', onPointerDown)
+    }
+  }, [userMenuOpen])
+
+  const userMenuItems = [
+    { id: 'switch', label: 'Skipta um aðgang', iconSrc: ASSETS.userMenu.switchAccount, dividerAfter: true },
+    { id: 'info', label: 'Mínar upplýsingar', iconSrc: ASSETS.userMenu.user },
+    { id: 'assets', label: 'Eignir og mælar', iconSrc: ASSETS.userMenu.assetsMeters },
+    { id: 'access', label: 'Aðgangar og umboð', iconSrc: ASSETS.userMenu.accessDelegation },
+    { id: 'payment', label: 'Greiðsluupplýsingar', iconSrc: ASSETS.userMenu.paymentInfo },
+    { id: 'pi', label: 'PI Port og vefþjónustur', iconSrc: ASSETS.userMenu.piPort, dividerAfter: true },
+    { id: 'advice', label: 'Hollráð', iconSrc: ASSETS.userMenu.advice },
+    { id: 'help', label: 'Aðstoð', iconSrc: ASSETS.userMenu.help, dividerAfter: true },
+    { id: 'logout', label: 'Útskrá', iconSrc: ASSETS.userMenu.logout },
+  ]
 
   return (
     <div className="minar-umsoknir">
@@ -183,23 +270,85 @@ export default function MinarUmsoknir() {
             <IconBell />
             <span className="minar-umsoknir__notif-dot" aria-hidden />
           </button>
-          <button type="button" className="minar-umsoknir__user-menu">
+          <button
+            ref={userMenuBtnRef}
+            type="button"
+            className="minar-umsoknir__user-menu"
+            aria-haspopup="menu"
+            aria-expanded={userMenuOpen}
+            onClick={() => setUserMenuOpen((v) => !v)}
+          >
             <span>Jónatan Gunnlaugsson</span>
             <IconCaretDown />
           </button>
+          {userMenuOpen ? (
+            <div ref={userMenuPanelRef} className="minar-umsoknir__user-dropdown" role="menu">
+              <div className="minar-umsoknir__user-dropdown-head">
+                <div className="minar-umsoknir__user-dropdown-name">Jónatan Gunnlaugsson</div>
+                <button
+                  ref={userMenuCloseBtnRef}
+                  type="button"
+                  className="minar-umsoknir__user-dropdown-close"
+                  onClick={() => {
+                    setUserMenuOpen(false)
+                    window.setTimeout(() => userMenuBtnRef.current?.focus(), 0)
+                  }}
+                  aria-label="Loka valmynd"
+                >
+                  <img src={ASSETS.userMenu.close} alt="" aria-hidden />
+                </button>
+              </div>
+              <div className="minar-umsoknir__user-dropdown-items" role="presentation">
+                {userMenuItems.map((item) => (
+                  <div key={item.id} role="presentation">
+                    <button
+                      type="button"
+                      role="menuitem"
+                      className="minar-umsoknir__user-dropdown-item"
+                      onClick={() => {
+                        setUserMenuOpen(false)
+                        if (item.id === 'logout') navigate('/login')
+                      }}
+                    >
+                      <span className="minar-umsoknir__user-dropdown-icon" aria-hidden>
+                        <img src={item.iconSrc} alt="" />
+                      </span>
+                      <span className="minar-umsoknir__user-dropdown-label">{item.label}</span>
+                    </button>
+                    {item.dividerAfter ? <div className="minar-umsoknir__user-dropdown-divider" /> : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </header>
 
-      <section className="minar-umsoknir__hero" aria-labelledby="page-title">
-        <img className="minar-umsoknir__hero-bg" src={ASSETS.hero} alt="" />
-        <div className="minar-umsoknir__hero-inner">
-          <h1 id="page-title" className="minar-umsoknir__hero-title">
-            Mínar umsóknir
-          </h1>
-        </div>
-      </section>
+      {!statusApplication ? (
+        <section className="minar-umsoknir__hero" aria-labelledby="page-title">
+          <img className="minar-umsoknir__hero-bg" src={ASSETS.hero} alt="" />
+          <div className="minar-umsoknir__hero-inner">
+            <h1 id="page-title" className="minar-umsoknir__hero-title">
+              Mínar umsóknir
+            </h1>
+          </div>
+        </section>
+      ) : null}
 
-      <div className="minar-umsoknir__main-wrap">
+      <div
+        className={
+          statusApplication
+            ? 'minar-umsoknir__main-wrap minar-umsoknir__main-wrap--detail'
+            : 'minar-umsoknir__main-wrap'
+        }
+      >
+        {statusApplication ? (
+          <StoduyfirlitView
+            address={statusApplication.address}
+            onBack={() => setStatusApplication(null)}
+          />
+        ) : (
+          <>
         <div className="minar-umsoknir__toolbar">
           <div className="minar-umsoknir__tabs" role="tablist" aria-label="Síur umsókna">
             {TABS.map((tab) => {
@@ -241,10 +390,21 @@ export default function MinarUmsoknir() {
               </div>
               <div className="minar-umsoknir__field minar-umsoknir__field--period">
                 <span className="minar-umsoknir__label">Tímabil</span>
-                <div className="minar-umsoknir__select-like">
-                  <span>Mánuður</span>
-                  <IconCaretDown size={20} />
-                </div>
+                {periodFilterActive ? (
+                  <button
+                    type="button"
+                    className="minar-umsoknir__select-like minar-umsoknir__select-like--active"
+                    aria-haspopup="listbox"
+                  >
+                    <span className="minar-umsoknir__select-like__value">Mánuður</span>
+                    <IconCaretDown size={20} />
+                  </button>
+                ) : (
+                  <div className="minar-umsoknir__select-like" aria-disabled="true">
+                    <span className="minar-umsoknir__select-like__value">Mánuður</span>
+                    <IconCaretDown size={20} />
+                  </div>
+                )}
               </div>
             </div>
             <div className="minar-umsoknir__filters-right">
@@ -277,7 +437,7 @@ export default function MinarUmsoknir() {
                     <div className="minar-umsoknir__card-head">
                       <div className="minar-umsoknir__card-title-block">
                         <div className="minar-umsoknir__card-title-row">
-                          <h3 className="minar-umsoknir__card-title">Ármúli 1</h3>
+                          <h3 className="minar-umsoknir__card-title">Reynimelur 32</h3>
                           <div className="minar-umsoknir__tags">
                             <span className="minar-umsoknir__tag">
                               <span
@@ -293,7 +453,7 @@ export default function MinarUmsoknir() {
                     </div>
                     <div className="minar-umsoknir__card-foot">
                       <div className="minar-umsoknir__meta-row">
-                        <Meta label="Stofnað" value="06.05.2024" />
+                        <Meta label="Nýtenging húsnæðis" />
                       </div>
                       <button
                         type="button"
@@ -327,7 +487,7 @@ export default function MinarUmsoknir() {
                     </div>
                     <div className="minar-umsoknir__card-foot">
                       <div className="minar-umsoknir__meta-row">
-                        <Meta label="Stofnað" value="06.05.2024" />
+                        <Meta label="Nýtenging húsnæðis" />
                       </div>
                       <button
                         type="button"
@@ -345,7 +505,7 @@ export default function MinarUmsoknir() {
                     <div className="minar-umsoknir__card-head">
                       <div className="minar-umsoknir__card-title-block">
                         <div className="minar-umsoknir__card-title-row">
-                          <h3 className="minar-umsoknir__card-title">Reynimelur 28</h3>
+                          <h3 className="minar-umsoknir__card-title">Holtsgata 24</h3>
                           <div className="minar-umsoknir__tags">
                             <span className="minar-umsoknir__tag">
                               <span
@@ -361,7 +521,7 @@ export default function MinarUmsoknir() {
                     </div>
                     <div className="minar-umsoknir__card-foot">
                       <div className="minar-umsoknir__meta-row">
-                        <Meta label="Stofnað" value="06.05.2024" />
+                        <Meta label="Nýtenging húsnæðis" />
                       </div>
                       <button
                         type="button"
@@ -394,7 +554,7 @@ export default function MinarUmsoknir() {
                   Virkar umsóknir
                 </h2>
                 <div className="minar-umsoknir__card-list">
-                  {Array.from({ length: 6 }, (_, i) => (
+                  {Array.from({ length: virkarCount }, (_, i) => (
                     <article
                       key={i}
                       className="minar-umsoknir__list-card minar-umsoknir__list-card--soft"
@@ -402,15 +562,8 @@ export default function MinarUmsoknir() {
                       <div className="minar-umsoknir__card-head">
                         <div className="minar-umsoknir__card-title-block">
                           <div className="minar-umsoknir__card-title-row">
-                            <h3 className="minar-umsoknir__card-title">Reynimelur 28</h3>
+                            <h3 className="minar-umsoknir__card-title">{virkarCardStreet(i)}</h3>
                             <div className="minar-umsoknir__tags">
-                              <span className="minar-umsoknir__tag">
-                                <span
-                                  className="minar-umsoknir__status-dot minar-umsoknir__status-dot--grey"
-                                  aria-hidden
-                                />
-                                Umsjón
-                              </span>
                               <span className="minar-umsoknir__tag">
                                 <span
                                   className="minar-umsoknir__status-dot minar-umsoknir__status-dot--blue"
@@ -431,6 +584,9 @@ export default function MinarUmsoknir() {
                         <button
                           type="button"
                           className="minar-umsoknir__text-link minar-umsoknir__text-link--with-hover-arrow"
+                          onClick={() =>
+                            setStatusApplication({ address: virkarCardFullAddress(i) })
+                          }
                         >
                           Sjá stöðuyfirlit
                           <span className="minar-umsoknir__text-link__hover-icon" aria-hidden>
@@ -441,6 +597,18 @@ export default function MinarUmsoknir() {
                     </article>
                   ))}
                 </div>
+                {showVirkarSeeAll ? (
+                  <div className="minar-umsoknir__section-foot">
+                    <button
+                      type="button"
+                      className="minar-umsoknir__text-link"
+                      onClick={() => setActiveTab('virkar')}
+                    >
+                      Sjá fleiri umsóknir
+                      <IconArrowRight />
+                    </button>
+                  </div>
+                ) : null}
               </section>
               ) : null}
 
@@ -462,15 +630,8 @@ export default function MinarUmsoknir() {
                       <div className="minar-umsoknir__card-head">
                         <div className="minar-umsoknir__card-title-block">
                           <div className="minar-umsoknir__card-title-row">
-                            <h3 className="minar-umsoknir__card-title">Reynimelur 28</h3>
+                            <h3 className="minar-umsoknir__card-title">Reynimelur 32</h3>
                             <div className="minar-umsoknir__tags">
-                              <span className="minar-umsoknir__tag">
-                                <span
-                                  className="minar-umsoknir__status-dot minar-umsoknir__status-dot--grey"
-                                  aria-hidden
-                                />
-                                Umsjón
-                              </span>
                               <span className="minar-umsoknir__tag minar-umsoknir__tag--muted">
                                 {i === 0 ? 'Óklárað' : 'óklárað'}
                               </span>
@@ -494,6 +655,11 @@ export default function MinarUmsoknir() {
                         <button
                           type="button"
                           className="minar-umsoknir__text-link minar-umsoknir__text-link--with-hover-arrow"
+                          onClick={() =>
+                            setStatusApplication({
+                              address: `Reynimelur 32${ADDRESS_POSTAL_REYKJAVIK}`,
+                            })
+                          }
                         >
                           Sjá stöðuyfirlit
                           <span className="minar-umsoknir__text-link__hover-icon" aria-hidden>
@@ -506,7 +672,7 @@ export default function MinarUmsoknir() {
                 </div>
                 <div className="minar-umsoknir__section-foot">
                   <button type="button" className="minar-umsoknir__text-link">
-                    Sjá allar beiðnir
+                    Sjá fleiri umsóknir
                     <IconArrowRight />
                   </button>
                 </div>
@@ -539,6 +705,8 @@ export default function MinarUmsoknir() {
             </aside>
           </div>
         </div>
+          </>
+        )}
       </div>
     </div>
   )
