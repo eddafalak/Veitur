@@ -4,7 +4,7 @@
   --v-berg: #323232;
   --v-icon-hover: #496b72;
   width: 100%;
-  max-width: 705px;
+  max-width: 100%;
   background: #ffffff;
   border-radius: 6px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.05);
@@ -13,6 +13,8 @@
 }
 
 .nytenging-umsokn__yfirlit-card--price {
+  display: flex;
+  flex-direction: column;
   border-radius: 8px;
   box-shadow: 0 0 20px -4px rgba(0, 0, 0, 0.05);
 }
@@ -72,6 +74,8 @@ a.nytenging-umsokn__yfirlit-text-link {
 .nytenging-umsokn__yfirlit-card-body {
   padding: 24px;
   box-sizing: border-box;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .nytenging-umsokn__yfirlit-card-body--price {

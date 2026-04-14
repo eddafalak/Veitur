@@ -406,6 +406,11 @@
   line-height: 1.5;
 }
 
+/* Ensure YfirlitPriceCard aligns with Stöðuyfirlit cards (NytengingUmsokn.css sets max-width: 705px). */
+.stoduyfirlit__main .nytenging-umsokn__yfirlit-card {
+  max-width: 100%;
+}
+
 .stoduyfirlit__table-wrap {
   padding: 24px 24px 32px;
 }
