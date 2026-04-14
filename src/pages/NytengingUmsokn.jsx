@@ -2,6 +2,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from
 import { createPortal } from 'react-dom'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import YfirlitPriceCard from '../components/YfirlitPriceCard.jsx'
+import UserMenu from '../components/UserMenu.jsx'
 import { readGreidendurOrkumaelaDraft, saveGreidendurOrkumaelaDraft } from '../greidendurOrkumaelaDraft.js'
 import './MinarUmsoknir.css'
 import './NytengingUmsokn.css'
@@ -1895,10 +1896,7 @@ export default function NytengingUmsokn() {
             <IconBell />
             <span className="minar-umsoknir__notif-dot" aria-hidden />
           </button>
-          <button type="button" className="minar-umsoknir__user-menu">
-            <span>{DEMO_LOGGED_IN_NAME}</span>
-            <IconCaretDown />
-          </button>
+          <UserMenu name={DEMO_LOGGED_IN_NAME} />
         </div>
       </header>
 

@@ -213,6 +213,9 @@
   border-radius: 4px;
   overflow: hidden;
   background: var(--v-info-subtle);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .stofna-umsokn__option-media img {

@@ -708,6 +708,7 @@ export default function MinarUmsoknir() {
           </>
         )}
       </div>
+
     </div>
   )
 }

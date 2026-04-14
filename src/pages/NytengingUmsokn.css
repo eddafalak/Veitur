@@ -15,6 +15,13 @@
   background: var(--v-page);
 }
 
+/* In practice the shared top nav is ~68px + borders; make the map/sidebar fill remaining viewport. */
+@supports (height: 100dvh) {
+  .nytenging-umsokn__layout {
+    min-height: min(890px, calc(100dvh - 68px));
+  }
+}
+
 /* Skref 2 — Upplýsingar: 12-dálka kerfi (8 + 4), gutter 0 — aðaleyfður v., hliðarspjald h. */
 .nytenging-umsokn__layout--upplysingar {
   position: relative;
@@ -112,6 +119,11 @@
   max-width: 415px;
 }
 
+/* In step-2 sidenav we want accordions to span full column width. */
+.nytenging-umsokn__sidenav--step2 .nytenging-umsokn__side-accordions {
+  max-width: none;
+}
+
 .nytenging-umsokn__acc-card {
   background: var(--v-hvitur);
   border-radius: 6px;
@@ -193,6 +205,15 @@
 
 .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__uply.nytenging-umsokn__uply--greidendur {
   padding-right: 112px;
+}
+
+/* Cap the content/cards but keep outer padding stable. */
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__uply > .nytenging-umsokn__uply-lead,
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__uply > .nytenging-umsokn__uply-stack,
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__uply > .nytenging-umsokn__uply-actions {
+  width: 100%;
+  max-width: 1000px;
+  margin-inline: auto;
 }
 
 .nytenging-umsokn__uply-lead {
@@ -2192,6 +2213,11 @@
   box-sizing: border-box;
 }
 
+/* In step-2 layout, Yfirlit cards should fill the available content width. */
+.nytenging-umsokn__layout--upplysingar .nytenging-umsokn__uply-stack .nytenging-umsokn__yfirlit-card {
+  max-width: none;
+}
+
 .nytenging-umsokn__yfirlit-card-head {
   padding: 24px;
   border-bottom: 1px solid #e8efef;
@@ -2336,17 +2362,17 @@ a.nytenging-umsokn__yfirlit-text-link {
   }
 
   .nytenging-umsokn__layout--upplysingar {
-    display: flex;
-    flex-direction: column;
+    /* Keep 12-col grid (8 + 4) through tablet widths. */
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 0;
-    gap: 16px;
+    row-gap: 0;
+    gap: 0;
   }
 
   .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__main,
   .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__sidenav {
-    grid-column: unset;
-    grid-row: unset;
-    width: 100%;
+    width: auto;
   }
 
   .nytenging-umsokn__sidenav {
@@ -2400,7 +2426,6 @@ a.nytenging-umsokn__yfirlit-text-link {
   }
 
   .nytenging-umsokn__sidenav--step2 {
-    width: 100%;
     border-left: none;
   }
 
@@ -2421,5 +2446,25 @@ a.nytenging-umsokn__yfirlit-text-link {
     width: 100%;
     max-width: none;
     padding: 0 0 8px;
+  }
+}
+
+@media (max-width: 800px) {
+  /* Collapse to single column on small screens. */
+  .nytenging-umsokn__layout--upplysingar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__main,
+  .nytenging-umsokn__layout--upplysingar .nytenging-umsokn__sidenav {
+    grid-column: unset;
+    grid-row: unset;
+    width: 100%;
+  }
+
+  .nytenging-umsokn__sidenav--step2 {
+    width: 100%;
   }
 }

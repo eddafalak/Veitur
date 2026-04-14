@@ -1,18 +1,19 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import UserMenu from '../components/UserMenu.jsx'
 import './MinarUmsoknir.css'
 import './StofnaUmsokn.css'
 
 const ASSETS = {
   logo: '/figma-assets/d34fa6c5a18c064370f1e0cf9cc7b3a3d28d5fa7.png',
   hero: '/figma-assets/1af8bb021722fc8cda711d628703c4b5a4c104fa.png',
-  cardFaersla: '/figma-assets/0c6e97a13eacf963285ef0ab96f78895f1a072b7.png',
-  cardBreyta: '/figma-assets/c59eafc999e79d534dd811b405d338adc48090b5.png',
-  cardLitra: '/figma-assets/ab5f78670d1c6352991429d49486d15327beb8f6.png',
-  cardThrif: '/figma-assets/c444cc218088f277fb70e15162d7f43da039f765.png',
+  cardFaersla: `${import.meta.env.BASE_URL}OR89219%204.png`,
+  cardBreyta: `${import.meta.env.BASE_URL}OR89219%202.png`,
+  cardLitra: `${import.meta.env.BASE_URL}OR89219.png`,
+  cardThrif: `${import.meta.env.BASE_URL}OR89219%203.png`,
   /** Nýtenging — Figma OR89219 / OR89220 */
-  cardNytHusnaedi: '/figma-assets/a8933d8ce667a400425ce74f66b4d9d7fbe3fb7a.png',
-  cardNytInnvidi: '/figma-assets/40fb06819554eb98893d83cc4e7ff1284c74df0b.png',
+  cardNytHusnaedi: `${import.meta.env.BASE_URL}OR89219%206.png`,
+  cardNytInnvidi: `${import.meta.env.BASE_URL}OR89219%205.png`,
 }
 
 function IconBell() {
@@ -175,10 +176,7 @@ export default function StofnaUmsokn() {
             <IconBell />
             <span className="minar-umsoknir__notif-dot" aria-hidden />
           </button>
-          <button type="button" className="minar-umsoknir__user-menu">
-            <span>Jónatan Gunnlaugsson</span>
-            <IconCaretDown />
-          </button>
+          <UserMenu name="Jónatan Gunnlaugsson" />
         </div>
       </header>
 
@@ -243,7 +241,10 @@ export default function StofnaUmsokn() {
                           <IconArrowRight />
                         </button>
                       </div>
-                      <div className="stofna-umsokn__option-media">
+                      <div
+                        className="stofna-umsokn__option-media"
+                        style={opt.image ? { backgroundImage: `url(${opt.image})` } : undefined}
+                      >
                         <img src={opt.image} alt="" />
                       </div>
                     </article>
@@ -270,7 +271,10 @@ export default function StofnaUmsokn() {
                           <IconArrowRight />
                         </Link>
                       </div>
-                      <div className="stofna-umsokn__option-media">
+                      <div
+                        className="stofna-umsokn__option-media"
+                        style={opt.image ? { backgroundImage: `url(${opt.image})` } : undefined}
+                      >
                         <img src={opt.image} alt="" />
                       </div>
                     </article>
