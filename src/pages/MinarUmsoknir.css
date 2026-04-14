@@ -309,6 +309,10 @@
   margin-top: 0;
   padding-top: 32px;
   padding-bottom: 48px;
+  /* Detail view: allow content to grow on wide screens while keeping a minimum gutter. */
+  max-width: 1720px;
+  padding-left: clamp(24px, 4vw, 64px);
+  padding-right: clamp(24px, 4vw, 64px);
 }
 
 .minar-umsoknir__toolbar {
