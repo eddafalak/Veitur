@@ -28,7 +28,7 @@ export default function VelduAdgang() {
   return (
     <div className="veldu-adgang">
       <header className="veldu-adgang__nav" aria-label="Veitur">
-        <a href="/" className="veldu-adgang__logo" aria-label="Veitur">
+        <a href="/login" className="veldu-adgang__logo" aria-label="Veitur">
           <img src={ASSETS.logo} alt="Veitur" width={160} height={36} />
         </a>
       </header>
@@ -54,7 +54,7 @@ export default function VelduAdgang() {
                   name="Jónatan Gunnlaugsson"
                   kt="260956-1236"
                   tag="GREIÐANDI"
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/umsoknir')}
                 />
               </div>
 

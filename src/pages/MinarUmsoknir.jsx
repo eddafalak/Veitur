@@ -246,7 +246,7 @@ export default function MinarUmsoknir() {
   return (
     <div className="minar-umsoknir">
       <header className="minar-umsoknir__nav">
-        <a href="/" className="minar-umsoknir__logo">
+        <a href="/umsoknir" className="minar-umsoknir__logo">
           <img src={ASSETS.logo} alt="Veitur" width={160} height={36} />
         </a>
         <nav className="minar-umsoknir__nav-items" aria-label="Aðalvalmynd">

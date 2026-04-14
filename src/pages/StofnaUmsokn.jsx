@@ -152,7 +152,7 @@ export default function StofnaUmsokn() {
   return (
     <div className="minar-umsoknir stofna-umsokn">
       <header className="minar-umsoknir__nav">
-        <Link to="/" className="minar-umsoknir__logo">
+        <Link to="/umsoknir" className="minar-umsoknir__logo">
           <img src={ASSETS.logo} alt="Veitur" width={160} height={36} />
         </Link>
         <nav className="minar-umsoknir__nav-items" aria-label="Aðalvalmynd">
@@ -193,7 +193,7 @@ export default function StofnaUmsokn() {
         <div className="stofna-umsokn__stack">
           <div className="stofna-umsokn__panel">
             <div className="stofna-umsokn__back-wrap">
-              <Link to="/" className="stofna-umsokn__back">
+              <Link to="/umsoknir" className="stofna-umsokn__back">
                 <IconArrowLeft />
                 Til baka
               </Link>

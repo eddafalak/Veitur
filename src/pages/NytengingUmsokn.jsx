@@ -1161,7 +1161,7 @@ function UmsoknMottekinModal({ open, onClose, titleId, descriptionId }) {
               className="nytenging-umsokn__mottekin-cta"
               onClick={() => {
                 onClose()
-                navigate('/')
+                navigate('/umsoknir')
               }}
             >
               Mínar umsóknir
@@ -1872,7 +1872,7 @@ export default function NytengingUmsokn() {
   return (
     <div className="minar-umsoknir nytenging-umsokn">
       <header className="minar-umsoknir__nav">
-        <Link to="/" className="minar-umsoknir__logo">
+        <Link to="/umsoknir" className="minar-umsoknir__logo">
           <img src={ASSETS.logo} alt="Veitur" width={160} height={36} />
         </Link>
         <nav className="minar-umsoknir__nav-items" aria-label="Aðalvalmynd">

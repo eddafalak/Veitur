@@ -8,9 +8,10 @@ import NytengingUmsokn from './pages/NytengingUmsokn.jsx'
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/veldu-adgang" element={<VelduAdgang />} />
-      <Route path="/" element={<MinarUmsoknir />} />
+      <Route path="/umsoknir" element={<MinarUmsoknir />} />
       <Route path="/stofna-umsokn" element={<StofnaUmsokn />} />
       <Route path="/umsokn/nytenging/:type" element={<NytengingUmsokn />} />
     </Routes>
